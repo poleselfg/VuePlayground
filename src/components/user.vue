@@ -20,7 +20,6 @@
           <v-row class="inputRow">
             <v-text-field
               v-model="newUser.name"
-              :counter="10"
               label="First name"
               required
             ></v-text-field>
@@ -51,8 +50,12 @@ export default {
 
   methods: {
     addUser() {
-      this.users.push(this.newUser);
-      this.newUser = {};
+      if (this.newUser.name && this.newUser.email) {
+        this.users.push(this.newUser);
+        this.newUser = {};
+      } else {
+        alert("Ambos campos son requeridos");
+      }
     },
     deleteUser(user) {
       this.users.splice(this.users.indexOf(user), 1);
@@ -102,7 +105,7 @@ h1 {
 
 #card {
   max-width: 600px;
-  height: 100%;
+  max-height: 100vh;
   border-radius: 50px;
   filter: drop-shadow(0 0 0.75rem black);
 }
